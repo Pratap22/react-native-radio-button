@@ -1,0 +1,28 @@
+{
+  "name": "@pratap2210/react-native-radio-button",
+  "version": "1.0.0",
+  "description": "Radio and RadioGroup button component for React Native",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pratap22/react-native-radio-button.git"
+  },
+  "keywords": [
+    "react-native",
+    "radio",
+    "button",
+    "radio-button",
+    "radio-group",
+    "android",
+    "ios"
+  ],
+  "author": "Pratap Sharma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pratap22/react-native-radio-button.git"
+  },
+  "homepage": "https://github.com/Pratap22/react-native-radio-button.git"
+}
