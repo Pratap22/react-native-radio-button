@@ -1,6 +1,6 @@
 {
   "name": "@pratap2210/react-native-radio-button",
-  "version": "1.0.6",
+  "version": "1.0.10",
   "description": "Radio and RadioGroup button component for React Native",
   "main": "index.js",
   "scripts": {

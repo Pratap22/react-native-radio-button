@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, TouchableOpacity, Text } from "react-native";
-import RadioButton from "./RadioButton";
+import { View, Text } from "react-native";
+import RadioButton from "./radioButton";
 
 const defaultSize = 24;
 const defaultThickness = 2;
@@ -11,17 +11,19 @@ class RadioButtonGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: this.props.selectedIndex
+      selectedIndex: this.props.selectedIndex,
+      prevSelected: this.props.selectedIndex
     };
-    this.prevSelected = this.props.selectedIndex;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedIndex !== this.prevSelected) {
-      this.prevSelected = nextProps.selectedIndex;
-      this.setState({
-        selectedIndex: nextProps.selectedIndex
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.selectedIndex !== prevState.prevSelected) {
+      return {
+        selectedIndex: nextProps.selectedIndex,
+        prevSelected: nextProps.selectedIndex
+      };
+    } else {
+      return null;
     }
   }
 
@@ -58,18 +60,21 @@ class RadioButtonGroup extends React.Component {
     if (!radioButtons) {
       return null;
     }
-    return radioButtons.map((button, index) => (
-      <RadioButton
-        selected={
-          this.props.isMultiSelect
-            ? button.selected
-            : index === this.state.selectedIndex
-        }
-        label={button.label}
-        {...this.props}
-        onChange={selected => this.handleRadioButtonChange(selected, index)}
-      />
-    ));
+    return radioButtons.map((button, index) => {
+      let labelName = this.props.optionLabelName;
+      return (
+        <RadioButton
+          selected={
+            this.props.isMultiSelect
+              ? button.selected
+              : index === this.state.selectedIndex
+          }
+          label={`${button[labelName]}`}
+          {...this.props}
+          onChange={selected => this.handleRadioButtonChange(selected, index)}
+        />
+      );
+    });
   };
 
   render() {
@@ -89,18 +94,17 @@ class RadioButtonGroup extends React.Component {
   }
 }
 
-export default RadioButtonGroup;
-
-RadioButtonGroup.contextType = {
+RadioButtonGroup.propTypes = {
   onRadioGroupChange: PropTypes.func.isRequired,
-  isMultiSelect: PropTypes.bool.isRequired,
-  radioGroupLabel: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-  thickness: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
-  radioGroupLabelStyle: PropTypes.object.isRequired,
-  radioLabelStyle: PropTypes.object.isRequired,
-  radioStyle: PropTypes.object.isRequired
+  optionLabelName: PropTypes.string.isRequired,
+  isMultiSelect: PropTypes.bool,
+  radioGroupLabel: PropTypes.string,
+  size: PropTypes.number,
+  thickness: PropTypes.number,
+  color: PropTypes.string,
+  radioGroupLabelStyle: PropTypes.object,
+  radioLabelStyle: PropTypes.object,
+  radioStyle: PropTypes.object
 };
 
 RadioButtonGroup.defaultProps = {
@@ -109,3 +113,5 @@ RadioButtonGroup.defaultProps = {
   color: defaultColor,
   isMultiSelect: false
 };
+
+export default RadioButtonGroup;
