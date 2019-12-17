@@ -64,11 +64,8 @@ class RadioButtonGroup extends React.Component {
       let labelName = this.props.optionLabelName;
       return (
         <RadioButton
-          selected={
-            this.props.isMultiSelect
-              ? button.selected
-              : index === this.state.selectedIndex
-          }
+          key={`radio-button-${index}`}
+          selected={button.selected}
           label={`${button[labelName]}`}
           {...this.props}
           onChange={selected => this.handleRadioButtonChange(selected, index)}
