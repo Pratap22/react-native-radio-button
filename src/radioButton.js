@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { View, Text, TouchableOpacity } from "react-native";
 
 const RadioButton = ({
@@ -43,6 +44,20 @@ const RadioButton = ({
       <Text style={[{ marginLeft: 10 }, radioLabelStyle]}>{label}</Text>
     </View>
   );
+};
+
+RadioButton.propTypes = {
+  size: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
+  color: PropTypes.string,
+  selected: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  radioLabelStyle: PropTypes.object,
+  radioStyle: PropTypes.object,
+  thickness: PropTypes.number
+};
+RadioButton.defaultProps = {
+  selected: false
 };
 
 export default RadioButton;
