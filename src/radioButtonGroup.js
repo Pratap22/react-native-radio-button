@@ -8,33 +8,6 @@ const defaultThickness = 2;
 const defaultColor = "#007AFF";
 
 class RadioButtonGroup extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedIndex: this.props.selectedIndex,
-      prevSelected: this.props.selectedIndex
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.selectedIndex !== prevState.prevSelected) {
-      return {
-        selectedIndex: nextProps.selectedIndex,
-        prevSelected: nextProps.selectedIndex
-      };
-    } else {
-      return null;
-    }
-  }
-
-  onSelect = (index, value) => {
-    this.setState({
-      selectedIndex: index
-    });
-    if (this.props.onRadioGroupChange)
-      this.props.onRadioGroupChange(index, value);
-  };
-
   handleRadioButtonChange = (isChecked, index) => {
     const { radioButtons } = this.props;
     const { onRadioGroupChange } = this.props;
@@ -44,15 +17,24 @@ class RadioButtonGroup extends React.Component {
       );
       onRadioGroupChange(newCheckState);
     } else {
-      let checkState = radioButtons.map((aCheckbox, i) =>
-        index === i
-          ? { ...aCheckbox, selected: isChecked }
-          : { ...aCheckbox, selected: !isChecked }
-      );
-      this.setState({
-        selectedIndex: index
+      let checkState = radioButtons.map((aCheckbox, i) => {
+        if (index === i) {
+          if (aCheckbox.selected) {
+            return aCheckbox;
+          } else {
+            return {
+              ...aCheckbox,
+              selected: isChecked
+            };
+          }
+        } else {
+          return {
+            ...aCheckbox,
+            selected: false
+          };
+        }
       });
-      this.props.onRadioGroupChange(checkState);
+      onRadioGroupChange(checkState);
     }
   };
   renderRadioGroups = () => {
