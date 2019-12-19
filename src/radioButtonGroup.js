@@ -11,31 +11,19 @@ class RadioButtonGroup extends React.Component {
   handleRadioButtonChange = (isChecked, index) => {
     const { radioButtons } = this.props;
     const { onRadioGroupChange } = this.props;
-    if (this.props.isMultiSelect) {
-      const newCheckState = radioButtons.map((aCheckbox, i) =>
-        index === i ? { ...aCheckbox, selected: isChecked } : aCheckbox
-      );
-      onRadioGroupChange(newCheckState);
-    } else {
-      let checkState = radioButtons.map((aCheckbox, i) => {
-        if (index === i) {
-          if (aCheckbox.selected) {
-            return aCheckbox;
-          } else {
-            return {
-              ...aCheckbox,
-              selected: isChecked
-            };
-          }
-        } else {
-          return {
-            ...aCheckbox,
-            selected: false
-          };
-        }
-      });
-      onRadioGroupChange(checkState);
-    }
+    let checkState = radioButtons.map((aCheckbox, i) => {
+      const currentClicked = index === i;
+      if (this.props.isMultiSelect) {
+        return currentClicked
+          ? { ...aCheckbox, selected: isChecked }
+          : aCheckbox;
+      } else {
+        return currentClicked && aCheckbox.selected
+          ? aCheckbox
+          : { ...aCheckbox, selected: currentClicked };
+      }
+    });
+    onRadioGroupChange(checkState);
   };
   renderRadioGroups = () => {
     const { radioButtons } = this.props;
