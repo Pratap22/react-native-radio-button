@@ -13,8 +13,8 @@ const RadioButton = ({
   thickness
 }) => {
   return (
-    <View style={{ flexDirection: "row", margin: 3 }}>
-      <TouchableOpacity activeOpacity={0.7} onPress={() => onChange(!selected)}>
+    <TouchableOpacity activeOpacity={0.7} onPress={() => onChange(!selected)}>
+      <View style={{ flexDirection: "row", margin: 3 }}>
         <View
           style={[
             {
@@ -40,9 +40,9 @@ const RadioButton = ({
             />
           ) : null}
         </View>
-      </TouchableOpacity>
-      <Text style={[{ marginLeft: 10 }, radioLabelStyle]}>{label}</Text>
-    </View>
+        <Text style={[{ marginLeft: 10 }, radioLabelStyle]}>{label}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

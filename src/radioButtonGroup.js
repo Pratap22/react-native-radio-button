@@ -49,7 +49,7 @@ class RadioButtonGroup extends React.Component {
       <View style={this.props.style}>
         <Text
           style={[
-            { fontSize: 19, fontWeight: "700", marginBottom: 5 },
+            { fontSize: 19, marginBottom: 5 },
             this.props.radioGroupLabelStyle
           ]}
         >
